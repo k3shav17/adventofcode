@@ -58,7 +58,6 @@ public class Day14 {
             Integer.parseInt(details[6]), Integer.parseInt(details[13]));
       }
     }
-    System.out.println(participants);
     System.out.println(participants.entrySet().stream().max(Entry.comparingByValue()));
   }
 
