@@ -46,7 +46,7 @@ import java.util.Map.Entry;
 public class Day14 {
 
   static Map<String, Integer> participants = new HashMap<>();
-  static final int MAX_SECONDS = 2053;
+  static final int MAX_SECONDS = 2503;
 
   public static void main(String[] args) throws IOException {
 
