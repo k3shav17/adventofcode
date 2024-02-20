@@ -31,7 +31,6 @@ package com.twentyfifteen;
  */
 
 
-
 public class Day01 {
 
   public static void main(String[] args) {
@@ -58,9 +57,9 @@ public class Day01 {
   }
 
   /**
-   * --- Part Two --- Now, given the same instructions, find the position of the first character that
-   * causes him to enter the basement (floor -1). The first character in the instructions has position
-   * 1, the second character has position 2, and so on.
+   * --- Part Two --- Now, given the same instructions, find the position of the first character
+   * that causes him to enter the basement (floor -1). The first character in the instructions has
+   * position 1, the second character has position 2, and so on.
    * <p>
    * For example:
    * <p>
