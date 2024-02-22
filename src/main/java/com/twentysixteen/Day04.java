@@ -3,14 +3,11 @@ package com.twentysixteen;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * --- Day 4: Security Through Obscurity ---
@@ -33,30 +30,61 @@ import java.util.stream.Collectors;
  * Of the real rooms from the list above, the sum of their sector IDs is 1514.
  * <p>
  * What is the sum of the sector IDs of the real rooms?
+ * <p>
+ * <p>
+ * --- Part Two ---
+ * <p>
+ * With all the decoy data out of the way, it's time to decrypt this list and get moving.
+ * <p>
+ * The room names are encrypted by a state-of-the-art shift cipher, which is nearly unbreakable
+ * without the right software. However, the information kiosk designers at Easter Bunny HQ were not
+ * expecting to deal with a master cryptographer like yourself.
+ * <p>
+ * To decrypt a room name, rotate each letter forward through the alphabet a number of times equal
+ * to the room's sector ID. A becomes B, B becomes C, Z becomes A, and so on. Dashes become spaces.
+ * <p>
+ * For example, the real name for qzmt-zixmtkozy-ivhz-343 is very encrypted name.
+ * <p>
+ * What is the sector ID of the room where North Pole objects are stored?
  */
 public class Day04 {
 
   private static int summationOfSectors = 0;
 
   public static void main(String[] args) throws IOException {
-    partOne();
+    partOne(getInstructions());
+    partTwo(getInstructions());
   }
 
-  public static void partOne() throws IOException {
-
+  public static List<String> getInstructions() throws IOException {
+    List<String> input = new ArrayList<>();
     try (BufferedReader br = new BufferedReader(new FileReader("inputs/day42016.txt"))) {
       String instructions;
-
       while ((instructions = br.readLine()) != null) {
-        if (isRealRoom(instructions)) {
-          int sectorId = extractSectorId(instructions);
-          summationOfSectors += sectorId;
-        }
+        input.add(instructions);
+      }
+    }
+    return input;
+  }
+
+  public static void partOne(List<String> instructions) {
+    for (String instruction : instructions) {
+      if (isRealRoom(instruction)) {
+        int sectorId = extractSectorId(instruction);
+        summationOfSectors += sectorId;
       }
     }
     System.out.println(summationOfSectors);
   }
 
+  public static void partTwo(List<String> instructions) {
+    for (String instruction : instructions) {
+      if (isRealRoom(instruction) && getRealRoomName(instruction).startsWith("north")) {
+        System.out.println(extractSectorId(instruction));
+        break;
+      }
+    }
+  }
 
   public static int extractSectorId(String sectorDetails) {
     int sectorLength = sectorDetails.length();
@@ -89,5 +117,35 @@ public class Day04 {
       sb.append(entries.getKey());
     }
     return sb.toString();
+  }
+
+  public static String getRealRoomName(String encrypted) {
+    char[] alphabet = new char[26];
+
+    int index = 0;
+    for (int i = 97; i < 123; i++) {
+      alphabet[index++] = (char) i;
+    }
+
+    String instructions = encrypted.substring(0, encrypted.length() - 10);
+    StringBuilder encryptedCode = new StringBuilder();
+    for (Character c : instructions.toCharArray()) {
+      if (c == '-') {
+        encryptedCode.append(" ");
+      } else {
+        encryptedCode.append(c);
+      }
+    }
+
+    StringBuilder decryptedName = new StringBuilder();
+    int sector = extractSectorId(encrypted);
+    for (Character c : encryptedCode.toString().toCharArray()) {
+      if (c == ' ') {
+        decryptedName.append(" ");
+      } else {
+        decryptedName.append(alphabet[Math.abs(c - 'a' + sector) % 26]);
+      }
+    }
+    return decryptedName.toString();
   }
 }
