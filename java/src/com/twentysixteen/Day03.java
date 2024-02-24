@@ -49,7 +49,7 @@ public class Day03 {
     List<Integer> columnTwo = new ArrayList<>();
     List<Integer> columnThree = new ArrayList<>();
 
-    try (BufferedReader br = new BufferedReader(new FileReader("inputs/day32016.txt"))) {
+    try (BufferedReader br = new BufferedReader(new FileReader("inputs/2016/day3.txt"))) {
       String triangle;
       while ((triangle = br.readLine()) != null) {
         List<Integer> sides = getSides(triangle);
@@ -75,7 +75,7 @@ public class Day03 {
 
   public static void partOne() throws IOException {
     int possibleTriangles = 0;
-    try (BufferedReader br = new BufferedReader(new FileReader("inputs/day32016.txt"))) {
+    try (BufferedReader br = new BufferedReader(new FileReader("inputs/day3.txt"))) {
       String triangle;
       while ((triangle = br.readLine()) != null) {
         List<Integer> sides = getSides(triangle);
