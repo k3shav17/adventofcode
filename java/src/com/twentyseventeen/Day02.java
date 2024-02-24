@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -88,8 +90,9 @@ public class Day02 {
   }
 
   public static int calculateChecksum(List<Integer> spreadsheetCells) {
-    return spreadsheetCells.stream().max(Integer::compare).get() - spreadsheetCells.stream()
-        .min(Integer::compare).get();
+    OptionalInt max = spreadsheetCells.stream().mapToInt(Integer::intValue).max();
+    OptionalInt min = spreadsheetCells.stream().mapToInt(Integer::intValue).min();
+    return max.orElse(0) - min.orElse(0);
   }
 
   public static int getWholeNumbers(List<Integer> spreadsheetCells) {
