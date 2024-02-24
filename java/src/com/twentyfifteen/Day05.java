@@ -51,7 +51,7 @@ public class Day05 {
   public static void main(String[] args) throws IOException {
     int nicekid = 0;
 
-    try (BufferedReader br = new BufferedReader(new FileReader("inputs/day52015.txt"))) {
+    try (BufferedReader br = new BufferedReader(new FileReader("inputs/2015/day5.txt"))) {
       String kid;
       while ((kid = br.readLine()) != null) {
         if (!isNaughty(kid)) {

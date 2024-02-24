@@ -50,7 +50,7 @@ public class Day14 {
 
   public static void main(String[] args) throws IOException {
 
-    try (BufferedReader br = new BufferedReader(new FileReader("inputs/Day142015.txt"))) {
+    try (BufferedReader br = new BufferedReader(new FileReader("inputs/2015/day14.txt"))) {
       String participant;
       while ((participant = br.readLine()) != null) {
         String[] details = participant.split(" ");

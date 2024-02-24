@@ -46,7 +46,7 @@ public class Day06 {
     int statusOn = 0;
     int[][] grid = new int[1000][1000];
 
-    try (BufferedReader br = new BufferedReader(new FileReader("inputs/day62015.txt"))) {
+    try (BufferedReader br = new BufferedReader(new FileReader("inputs/2015/day6.txt"))) {
       String instructions;
       while ((instructions = br.readLine()) != null) {
         String operation = deriveInstruction(instructions);

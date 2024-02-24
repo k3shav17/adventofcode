@@ -41,7 +41,7 @@ import java.io.IOException;
  * example above, this is 24000 (carried by the fourth Elf). Find the Elf carrying the most
  * Calories. How many total Calories is that Elf carrying?
  */
-public class Day012022 {
+public class Day01 {
 
   public static void main(String[] args) throws IOException {
     String input = """

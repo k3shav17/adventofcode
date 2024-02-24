@@ -43,7 +43,7 @@ public class Day09 {
 
     List<String> cities = new ArrayList<>();
 
-    try (BufferedReader br = new BufferedReader(new FileReader("inputs/day92015.txt"))) {
+    try (BufferedReader br = new BufferedReader(new FileReader("inputs/2015/day9.txt"))) {
       String locationDetails;
 
       while ((locationDetails = br.readLine()) != null) {

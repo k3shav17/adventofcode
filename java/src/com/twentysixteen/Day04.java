@@ -113,7 +113,7 @@ public class Day04 {
 
     StringBuilder sb = new StringBuilder();
 
-    for (Map.Entry<Character, Integer> entries : charList) {
+    for (Entry<Character, Integer> entries : charList) {
       sb.append(entries.getKey());
     }
     return sb.toString();

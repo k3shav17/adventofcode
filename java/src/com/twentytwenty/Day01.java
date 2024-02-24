@@ -33,7 +33,7 @@ public class Day01 {
     int target = 2020;
     int first = 0, second = 0;
 
-    try (BufferedReader br = new BufferedReader(new FileReader("inputs/day12020.txt"))) {
+    try (BufferedReader br = new BufferedReader(new FileReader("inputs/day1.txt"))) {
 
       String line;
 

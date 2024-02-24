@@ -32,7 +32,7 @@ public class Day02 {
   public static void main(String[] args) throws IOException {
     int totalSquareFeet = 0;
     int totalRibbonToOrder = 0;
-    try (BufferedReader br = new BufferedReader(new FileReader("inputs/day12015.txt"))) {
+    try (BufferedReader br = new BufferedReader(new FileReader("inputs/2015/day1.txt"))) {
       String dimensions;
       while ((dimensions = br.readLine()) != null) {
         totalSquareFeet += squareFeet(dimensions);

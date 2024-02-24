@@ -11,7 +11,7 @@ import java.util.Objects;
 // B - Paper - Y - Score - 2
 // C - Scissor - Z - Score - 3
 // win 6, lose 0, draw 3
-public class Day022022 {
+public class Day02 {
 
   static final int ROCK = 1;
   static final int PAPER = 2;
@@ -31,7 +31,7 @@ public class Day022022 {
     shapes.put("Y", PAPER);
     shapes.put("Z", SCISSORS);
 
-    try (BufferedReader br = new BufferedReader(new FileReader("inputs/day2.txt"))) {
+    try (BufferedReader br = new BufferedReader(new FileReader("inputs/2022/day2.txt"))) {
 
       String line;
       while ((line = br.readLine()) != null) {

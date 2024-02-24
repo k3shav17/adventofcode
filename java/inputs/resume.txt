@@ -1,5 +1,0 @@
-firstname: keshava
-lastname: kommaraju
-work experience: something blah blah
-project: built that, built this
-education: bachelor's
