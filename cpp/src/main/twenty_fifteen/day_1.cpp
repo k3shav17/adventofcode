@@ -25,7 +25,7 @@ int floor_level(std::string stairs)
 
 int main()
 {
-    std::string filePath = "/Users/keshav/AdventOfCode/inputs/2015/day1.txt";
+    std::string filePath = "../../../resources/2015/day_1.txt";
     std::ifstream file(filePath);
 
     if (!file.is_open())
