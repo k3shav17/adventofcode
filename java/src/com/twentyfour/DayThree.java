@@ -12,7 +12,7 @@ import java.nio.file.Paths;
  * The shopkeeper turns to you. "Any chance you can see why our computers are having issues again?"
  * <p>
  * The computer appears to be trying to run a program, but its memory (your puzzle input) is
- * corrupted. All the instructions have been jumbled up!
+ * corrupted. All of the instructions have been jumbled up!
  * <p>
  * It seems like the goal of the program is just to multiply some numbers. It does that with
  * instructions like mul(X,Y), where X and Y are each 1-3 digit numbers. For instance, mul(44,46)
@@ -85,7 +85,7 @@ public class DayThree {
   private static long partOne(String corruptedInstructions) {
     long result = 0L;
     for (int i = 0; i < corruptedInstructions.length() - 3; i++) {
-      if (corruptedInstructions.charAt(i) == 'm' && corruptedInstructions.charAt(i + 2) == 'u'
+      if (corruptedInstructions.charAt(i) == 'm' && corruptedInstructions.charAt(i + 1) == 'u'
           && corruptedInstructions.charAt(i + 2) == 'l'
           && corruptedInstructions.charAt(i + 3) == '(') {
         result += findClosingIndexAndOperate(corruptedInstructions, i + 3);
