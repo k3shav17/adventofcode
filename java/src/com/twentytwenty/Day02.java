@@ -42,20 +42,6 @@ public class Day02 {
     dayTwo.printValidCount();
   }
 
-  private void printValidCount() throws IOException {
-    int validCounter = 0;
-    try (BufferedReader br = new BufferedReader(new FileReader("inputs/day022020.txt"))) {
-      String password;
-      while ((password = br.readLine()) != null) {
-        if (isValid(password)) {
-          validCounter++;
-        }
-      }
-    }
-    System.out.println(validCounter);
-  }
-
-
   public static boolean isValid(String password) {
     char charToCheck = targetChar(password)[0];
     List<Integer> range = splitAndGetRange(password);
@@ -84,5 +70,18 @@ public class Day02 {
     range.add(Integer.parseInt(instructions[0].split("-")[0]));
     range.add(Integer.parseInt(instructions[0].split("-")[1].split(" ")[0]));
     return range;
+  }
+
+  private void printValidCount() throws IOException {
+    int validCounter = 0;
+    try (BufferedReader br = new BufferedReader(new FileReader("inputs/day022020.txt"))) {
+      String password;
+      while ((password = br.readLine()) != null) {
+        if (isValid(password)) {
+          validCounter++;
+        }
+      }
+    }
+    System.out.println(validCounter);
   }
 }

@@ -57,13 +57,12 @@ import java.util.Set;
  */
 public class Day08 {
 
-  private static int ACCUMULATOR = 0;
   private static final String ACC = "acc";
   private static final String NO_OP = "nop";
   private static final String JUMP = "jmp";
   private static final Set<String> alreadyRanInstruction = new HashSet<>();
   private static final List<String> instructionList = new ArrayList<>();
-
+  private static int ACCUMULATOR = 0;
 
   public static void main(String[] args) throws IOException {
 

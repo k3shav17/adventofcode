@@ -22,8 +22,7 @@ import java.util.List;
  * <p>
  * In your puzzle input, how many of the listed triangles are possible?
  * <p>
- * PART - 2
- * Now that you've helpfully marked up their design documents, it occurs to you that
+ * PART - 2 Now that you've helpfully marked up their design documents, it occurs to you that
  * triangles are specified in groups of three vertically. Each set of three numbers in a column
  * specifies a triangle. Rows are unrelated.
  * <p>

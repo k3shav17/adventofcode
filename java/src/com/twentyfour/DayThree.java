@@ -3,7 +3,6 @@ package com.twentyfour;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import javax.xml.stream.events.StartDocument;
 
 /**
  * "Our computers are having issues, so I have no idea if we have any Chief Historians in stock!
@@ -13,7 +12,7 @@ import javax.xml.stream.events.StartDocument;
  * The shopkeeper turns to you. "Any chance you can see why our computers are having issues again?"
  * <p>
  * The computer appears to be trying to run a program, but its memory (your puzzle input) is
- * corrupted. All of the instructions have been jumbled up!
+ * corrupted. All the instructions have been jumbled up!
  * <p>
  * It seems like the goal of the program is just to multiply some numbers. It does that with
  * instructions like mul(X,Y), where X and Y are each 1-3 digit numbers. For instance, mul(44,46)
@@ -35,86 +34,86 @@ import javax.xml.stream.events.StartDocument;
  */
 public class DayThree {
 
-    public static void main(String[] args) throws IOException {
-        String corruptedInstructions = Files.readString(Paths.get("java/inputs/2024/day_03.txt"));
-        System.out.println(partOne(corruptedInstructions));
-        partTwo(corruptedInstructions);
-    }
+  public static void main(String[] args) throws IOException {
+    String corruptedInstructions = Files.readString(Paths.get("java/inputs/2024/day_03.txt"));
+    System.out.println(partOne(corruptedInstructions));
+    partTwo(corruptedInstructions);
+  }
 
-    private static void partTwo(String corruptedInstructions) {
+  private static void partTwo(String corruptedInstructions) {
 
-        int firstDoIndex = findFirstDo(corruptedInstructions);
-        long result = operateTillFirstDo(corruptedInstructions.substring(0, firstDoIndex));
-        String corruptInstructionChunk;
+    int firstDoIndex = findFirstDo(corruptedInstructions);
+    long result = operateTillFirstDo(corruptedInstructions.substring(0, firstDoIndex));
+    String corruptInstructionChunk;
 
-        for (int i = firstDoIndex; i < corruptedInstructions.length(); i++) {
-            if (corruptedInstructions.charAt(i) == 'd' && corruptedInstructions.charAt(i + 1) == 'o'
-                && corruptedInstructions.charAt(i + 2) == '('
-                && corruptedInstructions.charAt(i + 3) == ')') {
-                int startOfDoNot = findDoNot(corruptedInstructions, i + 3);
-                if (startOfDoNot == -1) {
-                    startOfDoNot = corruptedInstructions.length();
-                }
-                corruptInstructionChunk = corruptedInstructions.substring(i + 4, startOfDoNot);
-                result += partOne(corruptInstructionChunk);
-            }
+    for (int i = firstDoIndex; i < corruptedInstructions.length(); i++) {
+      if (corruptedInstructions.charAt(i) == 'd' && corruptedInstructions.charAt(i + 1) == 'o'
+          && corruptedInstructions.charAt(i + 2) == '('
+          && corruptedInstructions.charAt(i + 3) == ')') {
+        int startOfDoNot = findDoNot(corruptedInstructions, i + 3);
+        if (startOfDoNot == -1) {
+          startOfDoNot = corruptedInstructions.length();
         }
-        System.out.println(result);
+        corruptInstructionChunk = corruptedInstructions.substring(i + 4, startOfDoNot);
+        result += partOne(corruptInstructionChunk);
+      }
     }
+    System.out.println(result);
+  }
 
-    private static int findFirstDo(String instructions) {
-        int tillFirstDo = 0;
-        for (int i = 0; i < instructions.length() - 3; i++) {
-            if (instructions.charAt(i) == 'd' && instructions.charAt(i + 1) == 'o'
-                && instructions.charAt(i + 2) == '('
-                && instructions.charAt(i + 3) == ')') {
-                tillFirstDo = i;
-                break;
-            }
-        }
-        return tillFirstDo;
+  private static int findFirstDo(String instructions) {
+    int tillFirstDo = 0;
+    for (int i = 0; i < instructions.length() - 3; i++) {
+      if (instructions.charAt(i) == 'd' && instructions.charAt(i + 1) == 'o'
+          && instructions.charAt(i + 2) == '('
+          && instructions.charAt(i + 3) == ')') {
+        tillFirstDo = i;
+        break;
+      }
     }
+    return tillFirstDo;
+  }
 
-    private static long operateTillFirstDo(String instructions) {
-        return partOne(instructions);
-    }
+  private static long operateTillFirstDo(String instructions) {
+    return partOne(instructions);
+  }
 
-    private static int findDoNot(String instructions, int endOfDo) {
-        return instructions.indexOf("don't()", endOfDo);
-    }
+  private static int findDoNot(String instructions, int endOfDo) {
+    return instructions.indexOf("don't()", endOfDo);
+  }
 
-    private static long partOne(String corruptedInstructions) {
-        long result = 0L;
-        for (int i = 0; i < corruptedInstructions.length() - 3; i++) {
-            if (corruptedInstructions.charAt(i) == 'm' && corruptedInstructions.charAt(i + 1) == 'u'
-                && corruptedInstructions.charAt(i + 2) == 'l'
-                && corruptedInstructions.charAt(i + 3) == '(') {
-                result += findClosingIndexAndOperate(corruptedInstructions, i + 3);
-            }
-        }
-        return result;
+  private static long partOne(String corruptedInstructions) {
+    long result = 0L;
+    for (int i = 0; i < corruptedInstructions.length() - 3; i++) {
+      if (corruptedInstructions.charAt(i) == 'm' && corruptedInstructions.charAt(i + 2) == 'u'
+          && corruptedInstructions.charAt(i + 2) == 'l'
+          && corruptedInstructions.charAt(i + 3) == '(') {
+        result += findClosingIndexAndOperate(corruptedInstructions, i + 3);
+      }
     }
+    return result;
+  }
 
-    private static long findClosingIndexAndOperate(String instructions, int openIndex) {
-        int closeIndex = instructions.indexOf(')', openIndex);
-        if (closeIndex == -1) {
-            return 0L;
-        }
-        String operationVals = instructions.substring(openIndex, closeIndex);
-        String actualValues = operationVals.substring(1);
-        return isInvalidInstruction(actualValues) ? 0L : performOperation(actualValues);
+  private static long findClosingIndexAndOperate(String instructions, int openIndex) {
+    int closeIndex = instructions.indexOf(')', openIndex);
+    if (closeIndex == -1) {
+      return 0L;
     }
+    String operationVals = instructions.substring(openIndex, closeIndex);
+    String actualValues = operationVals.substring(1);
+    return isInvalidInstruction(actualValues) ? 0L : performOperation(actualValues);
+  }
 
-    private static boolean isInvalidInstruction(String instruction) {
-        return instruction.contains("(") || instruction.contains("/");
-    }
+  private static boolean isInvalidInstruction(String instruction) {
+    return instruction.contains("(") || instruction.contains("/");
+  }
 
-    private static long performOperation(String vals) {
-        String[] values = vals.split(",");
-        long result = 1;
-        for (String value : values) {
-            result *= Long.parseLong(value);
-        }
-        return result;
+  private static long performOperation(String vals) {
+    String[] values = vals.split(",");
+    long result = 1;
+    for (String value : values) {
+      result *= Long.parseLong(value);
     }
+    return result;
+  }
 }

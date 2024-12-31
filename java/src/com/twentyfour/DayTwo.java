@@ -50,83 +50,83 @@ import java.util.stream.Collectors;
 
 public class DayTwo {
 
-    public static void main(String[] args) throws IOException {
+  public static void main(String[] args) throws IOException {
 
-        List<List<Integer>> reactorLevels = new ArrayList<>();
+    List<List<Integer>> reactorLevels = new ArrayList<>();
 
-        try (BufferedReader br = new BufferedReader(
-            new FileReader("java/inputs/2024/day_02.txt"))) {
+    try (BufferedReader br = new BufferedReader(
+        new FileReader("java/inputs/2024/day_02.txt"))) {
 
-            String reactorReport;
-            while ((reactorReport = br.readLine()) != null) {
-                String[] report = reactorReport.split("\\s+");
-                reactorLevels.add(strArrToInt(report));
-            }
+      String reactorReport;
+      while ((reactorReport = br.readLine()) != null) {
+        String[] report = reactorReport.split("\\s+");
+        reactorLevels.add(strArrToInt(report));
+      }
+    }
+    partOne(reactorLevels);
+  }
+
+  private static List<Integer> strArrToInt(String[] report) {
+    return Arrays.stream(report)
+        .map(Integer::parseInt)
+        .collect(Collectors.toList());
+  }
+
+  private static void partOne(List<List<Integer>> reactorLevels) {
+    List<List<Integer>> safeReports = new CopyOnWriteArrayList<>();
+    List<List<Integer>> offByOneSafeReports = new CopyOnWriteArrayList<>();
+
+    for (List<Integer> report : reactorLevels) {
+      if (isIncreasing(report) || isDecreasing(report)) {
+        safeReports.add(report);
+      } else {
+        if (isSafeReportBarringOneElement(report)) {
+          offByOneSafeReports.add(report);
         }
-        partOne(reactorLevels);
+      }
     }
 
-    private static List<Integer> strArrToInt(String[] report) {
-        return Arrays.stream(report)
-            .map(Integer::parseInt)
-            .collect(Collectors.toList());
+    System.out.println("safe reports = " + safeReports.size());
+    // part two
+    System.out.println("safe reports by removing one element = " + offByOneSafeReports.size());
+    System.out.println(
+        "total safe reports = " + (safeReports.size() + offByOneSafeReports.size()));
+  }
+
+  private static boolean isSafeReportBarringOneElement(List<Integer> report) {
+    for (int i = report.size() - 1; i >= 0; i--) {
+      List<Integer> tempList = new CopyOnWriteArrayList<>(report);
+      tempList.remove(i);
+      if (isIncreasing(tempList) || isDecreasing(tempList)) {
+        return true;
+      }
     }
+    return false;
+  }
 
-    private static void partOne(List<List<Integer>> reactorLevels) {
-        List<List<Integer>> safeReports = new CopyOnWriteArrayList<>();
-        List<List<Integer>> offByOneSafeReports = new CopyOnWriteArrayList<>();
-
-        for (List<Integer> report : reactorLevels) {
-            if (isIncreasing(report) || isDecreasing(report)) {
-                safeReports.add(report);
-            } else {
-                if (isSafeReportBarringOneElement(report)) {
-                    offByOneSafeReports.add(report);
-                }
-            }
-        }
-
-        System.out.println("safe reports = " + safeReports.size());
-        // part two
-        System.out.println("safe reports by removing one element = " + offByOneSafeReports.size());
-        System.out.println(
-            "total safe reports = " + (safeReports.size() + offByOneSafeReports.size()));
-    }
-
-    private static boolean isSafeReportBarringOneElement(List<Integer> report) {
-        for (int i = report.size() - 1; i >= 0; i--) {
-            List<Integer> tempList = new CopyOnWriteArrayList<>(report);
-            tempList.remove(i);
-            if (isIncreasing(tempList) || isDecreasing(tempList)) {
-                return true;
-            }
-        }
+  private static boolean isIncreasing(List<Integer> reportOfLevel) {
+    for (int i = 1; i < reportOfLevel.size(); i++) {
+      int previous = reportOfLevel.get(i - 1);
+      int current = reportOfLevel.get(i);
+      if (current < previous || isNotInThresholdLimit(previous, current)) {
         return false;
+      }
     }
+    return true;
+  }
 
-    private static boolean isIncreasing(List<Integer> reportOfLevel) {
-        for (int i = 1; i < reportOfLevel.size(); i++) {
-            int previous = reportOfLevel.get(i - 1);
-            int current = reportOfLevel.get(i);
-            if (current < previous || isNotInThresholdLimit(previous, current)) {
-                return false;
-            }
-        }
-        return true;
+  private static boolean isDecreasing(List<Integer> reportOfLevel) {
+    for (int i = 1; i < reportOfLevel.size(); i++) {
+      int previous = reportOfLevel.get(i - 1);
+      int current = reportOfLevel.get(i);
+      if (current > previous || isNotInThresholdLimit(previous, current)) {
+        return false;
+      }
     }
+    return true;
+  }
 
-    private static boolean isDecreasing(List<Integer> reportOfLevel) {
-        for (int i = 1; i < reportOfLevel.size(); i++) {
-            int previous = reportOfLevel.get(i - 1);
-            int current = reportOfLevel.get(i);
-            if (current > previous || isNotInThresholdLimit(previous, current)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private static boolean isNotInThresholdLimit(int previous, int current) {
-        return Math.abs(previous - current) < 1 || Math.abs(previous - current) > 3;
-    }
+  private static boolean isNotInThresholdLimit(int previous, int current) {
+    return Math.abs(previous - current) < 1 || Math.abs(previous - current) > 3;
+  }
 }
