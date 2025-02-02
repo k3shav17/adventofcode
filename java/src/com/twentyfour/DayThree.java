@@ -37,6 +37,7 @@ public class DayThree {
   public static void main(String[] args) throws IOException {
     String corruptedInstructions = Files.readString(Paths.get("java/inputs/2024/day_03.txt"));
     System.out.println(partOne(corruptedInstructions));
+    System.out.println("with regex " + partOneWithRegex(corruptedInstructions));
     partTwo(corruptedInstructions);
   }
 
@@ -115,5 +116,21 @@ public class DayThree {
       result *= Long.parseLong(value);
     }
     return result;
+  }
+
+   private static long partOneWithRegex(String corruptedInstructions) {
+    String regex = "mul\\(\\d+,\\d+\\)";
+    Pattern pattern = Pattern.compile(regex);
+    Matcher matcher = pattern.matcher(corruptedInstructions);
+
+    long productOfInstructions = 0L;
+
+    while (matcher.find()) {
+      int[] matchInstructions = Arrays.stream(
+              matcher.group().substring(4, matcher.group().length() - 1).split(","))
+          .mapToInt(Integer::parseInt).toArray();
+      productOfInstructions += (long) matchInstructions[0] * matchInstructions[1];
+    }
+    return productOfInstructions;
   }
 }
